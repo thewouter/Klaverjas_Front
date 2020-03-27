@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.App-nameField {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  width: 150px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -13,7 +20,29 @@
   }
 }
 
-.App-header {
+.btn{
+  margin: 10px;
+}
+.row {
+  display: table;
+}
+
+.column-new {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.column-join {
+  display: flex;
+  margin-left: 200px;
+  margin-right: 200px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.App {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
