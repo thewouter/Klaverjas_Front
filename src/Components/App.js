@@ -1,5 +1,4 @@
 import React from 'react';
-// import logo from './logo.svg';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import faker from 'faker'
@@ -21,11 +20,14 @@ class App extends React.Component {
             clientID: localStorage.getItem('clientID') || -1
         };
 
-        window.addEventListener('beforeunload', () => {
-            navigator.sendBeacon('https://klaverjas.local/client/' + this.state.clientID + '/logout');
-        });
-
+        // window.addEventListener('beforeunload', () => {
+        //     navigator.sendBeacon('https://klaverjas.local/client/' + this.state.clientID + '/logout');
+        // });
     }
+
+    windowsResized = () => {
+        this.setState({resize: window.innerHeight + window.innerWidth});
+    };
 
     screenChange = (screen) => {
         this.setState({screen: screen})
@@ -60,6 +62,14 @@ class App extends React.Component {
         localStorage.setItem("userName", event.target.value);
         localStorage.removeItem("clientID");
     };
+
+    componentDidMount() {
+        window.addEventListener('resize', this.windowsResized);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.windowsResized);
+    }
 
     render() {
         return (

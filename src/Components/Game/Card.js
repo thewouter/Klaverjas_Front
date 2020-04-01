@@ -58,8 +58,6 @@ class Card extends React.Component {
         }
 
         this.state = {
-            x: 140 * props.index + (window.innerWidth - 8 * 140) / 2,
-            y: window.innerHeight - 250,
             suitImage: null,
             suitX: suit_x,
             suitY: suit_y,
@@ -82,18 +80,21 @@ class Card extends React.Component {
     };
 
     render() {
-        let y = this.state.y;
+        let y = window.innerHeight - 250;
+        let x = 140 * this.props.index + (this.props.screenWidth - 8 * 140) / 2;
         let mouseX =this.props.mouseX;
         let mouseY = this.props.mouseY;
-        if (mouseX < this.state.x || mouseX > this.state.x + this.state.width ||
-            mouseY < this.state.y || mouseY > this.state.y + this.state.height + 50) {} else {
+        if (mouseX < x || mouseX > x + this.state.width ||
+            mouseY < y || mouseY > y + this.state.height + 50) {} else {
             y -= 50;
         }
+
+
 
         return (
             <Group onClick={this.cardClick}>
                 <Rect
-                    x={this.state.x}
+                    x={x}
                     y={y}
                     width={this.state.width}
                     height={this.state.height}
@@ -103,13 +104,13 @@ class Card extends React.Component {
                 />
                 <Text
                     text={this.state.rankNice}
-                    x={this.state.x + 40 - 15*(this.props.rank === 't')}
+                    x={x + 40 - 15*(this.props.rank === 't')}
                     y={y + 120}
                     fontSize={70}
                 />
                 <Image
                     image={this.state.suitImage}
-                    x={this.state.x + 12}
+                    x={x + 12}
                     y={y + 10}
                     scaleX={0.2}
                     scaleY={0.2}

@@ -7,12 +7,20 @@ class Table extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             fillPatternImage: null,
             mouseX: 0,
             mouseY: 0
         }
+        console.log(this.props.table.room)
+        console.log(this.positionNames[this.props.seat])
+    }
+
+    positionNames = {
+        0: "us1",
+        1: "them1",
+        2: "us2",
+        3: "them2"
     }
 
     componentDidMount() {
@@ -45,16 +53,17 @@ class Table extends React.Component {
                             fillPatternScaleY={0.2}
                             stroke="black"
                         />
-                        {this.props.playerCards.map((item, key) => {
+                        {this.props.table.room[this.positionNames[this.props.seat]].cards.map((item, key) => {
                                 return (
                                     <Card
                                         key={key}
                                         player={1}
                                         index={key}
-                                        suit={item[0]}
-                                        rank={item[1]}
+                                        suit={item.suit}
+                                        rank={item.rank}
                                         mouseX={this.state.mouseX}
                                         mouseY={this.state.mouseY}
+                                        screenWidth={window.innerWidth}
                                     />
                                 )
                             }
