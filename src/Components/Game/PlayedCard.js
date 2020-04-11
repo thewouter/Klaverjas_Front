@@ -1,8 +1,9 @@
 import React from "react";
 import suits from "../../img/suits.png";
 import {Group, Image, Rect, Text} from "react-konva";
+import {ClientIDHandlerContext} from "../Context/ClientIDHandler";
 
-class Card extends React.Component {
+class PlayedCard extends React.Component {
     constructor(props) {
         super(props);
 
@@ -75,27 +76,12 @@ class Card extends React.Component {
         }
     }
 
-    cardClick = () => {
-        alert(this.props.suit + this.props.rank)
-    };
-
     render() {
-        let y = window.innerHeight - 250;
-        let x = 140 * this.props.index + (this.props.screenWidth - 8 * 140) / 2;
-        let mouseX =this.props.mouseX;
-        let mouseY = this.props.mouseY;
-        if (mouseX < x || mouseX > x + this.state.width ||
-            mouseY < y || mouseY > y + this.state.height + 50) {} else {
-            y -= 50;
-        }
-
-
-
         return (
             <Group onClick={this.cardClick}>
                 <Rect
-                    x={x}
-                    y={y}
+                    x={this.props.x}
+                    y={this.props.y}
                     width={this.state.width}
                     height={this.state.height}
                     fill="white"
@@ -104,14 +90,14 @@ class Card extends React.Component {
                 />
                 <Text
                     text={this.state.rankNice}
-                    x={x + 40 - 15*(this.props.rank === 't')}
-                    y={y + 120}
+                    x={this.props.x + 40 - 15*(this.props.rank === 't')}
+                    y={this.props.y + 120}
                     fontSize={70}
                 />
                 <Image
                     image={this.state.suitImage}
-                    x={x + 12}
-                    y={y + 10}
+                    x={this.props.x + 12}
+                    y={this.props.y + 10}
                     scaleX={0.2}
                     scaleY={0.2}
                     cropX={this.state.suitX}
@@ -125,4 +111,6 @@ class Card extends React.Component {
     }
 }
 
-export default Card
+PlayedCard.contextType = ClientIDHandlerContext;
+
+export default PlayedCard

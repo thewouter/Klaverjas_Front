@@ -1,19 +1,26 @@
 import React from "react";
 import wood from "../../img/wood.jpg";
-import {Ellipse, Layer, Stage} from "react-konva";
-import Card from "./Card";
+import {Ellipse, Arrow, Layer, Stage} from "react-konva";
+import HandCard from "./HandCard";
+import {ClientIDHandlerContext} from "../Context/ClientIDHandler";
+import App from "../App";
+import PlayedCard from "./PlayedCard";
+import TrumpSelectBox from "./TrumpSelect/TrumpSelectBox";
+import ForceTrumpSelect from "./TrumpSelect/ForceTrumpSelect";
+import TrumpDisplay from "./TrumpDisplay";
 
 class Table extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             fillPatternImage: null,
             mouseX: 0,
-            mouseY: 0
-        }
-        console.log(this.props.table.room)
-        console.log(this.positionNames[this.props.seat])
+            mouseY: 0,
+            turn: 0
+        };
+        this.relativePlayPosition()
     }
 
     positionNames = {
@@ -21,7 +28,47 @@ class Table extends React.Component {
         1: "them1",
         2: "us2",
         3: "them2"
-    }
+    };
+
+    playerPositions = {
+        0: {
+            x: 0,
+            y: window.innerHeight * 3 / 10
+        },
+        1: {
+            x: - window.innerWidth * 3 / 10,
+            y: 0
+        },
+        2: {
+            x: 0,
+            y: - window.innerHeight * 3 / 10
+        },
+        3: {
+            x: window.innerWidth * 3 / 10,
+            y: 0
+        },
+    };
+
+    relativeCardPositions = {
+        0: {
+            x: 0,
+            y: 0
+        },
+        1: {
+            x: - window.innerWidth * 3 / 10,
+            y: 0
+        },
+        2: {
+            x: 0,
+            y: - window.innerHeight * 4 / 10
+        },
+        3: {
+            x: window.innerWidth * 3 / 10,
+            y: 0
+        },
+    };
+
+    suits = ['s', 'd', 'c', 'h'];
 
     componentDidMount() {
         const image = new window.Image();
@@ -37,7 +84,59 @@ class Table extends React.Component {
         this.setState({mouseX: mouseX, mouseY: mouseY})
     };
 
+    relativePlayPosition = () =>{
+        return this.playerPositions[this.playPosition()];
+    };
+
+    playPosition = () =>{
+        return (this.props.table.tricks[this.props.table.tricks.length - 1].turn - this.props.seat + this.props.table.first_player + 4) % 4;
+    };
+
+    playCard = (id) => {
+        if (!this.props.table.trump_chosen.some((chosen) => chosen === true)) {
+            return;
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({client: this.context.clientID, card: id})
+        };
+        fetch('https://klaverjas.local/trick/' + this.props.table.tricks[this.props.table.tricks.length - 1].id + '/play', requestOptions)
+            .then(result => {
+                fetch('https://klaverjas.local/player/' + this.props.table.room[this.positionNames[this.props.seat]].id )
+                    .then(result => result.json())
+                    .then(json =>{
+                        this.props.updatePlayer(json);
+                    });
+            });
+    };
+
+    selectTrump = (trump, choose) => {
+        let trumpChosen = this.props.table.trump_chosen;
+        trumpChosen[this.props.seat] = choose;
+        console.log(this.props.table.room.id)
+        const requestOptions = {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({trump_chosen: trumpChosen, trump: trump})
+        };
+        fetch('https://klaverjas.local/game/' + this.props.table.id, requestOptions)
+            .then(result => {
+                return result.json();
+            });
+    };
+
     render() {
+        const cards = Object.values(this.props.table.room[this.positionNames[this.props.seat]].cards);
+
+        const currentTrick = this.props.table.tricks[this.props.table.tricks.length - 1];
+        const playedCards = [
+            currentTrick.card_1,
+            currentTrick.card_2,
+            currentTrick.card_3,
+            currentTrick.card_4,
+                ];
         return (
             <div >
                 <Stage onMouseMove={this.mouseMove} width={window.innerWidth} height={window.innerHeight}>
@@ -53,26 +152,89 @@ class Table extends React.Component {
                             fillPatternScaleY={0.2}
                             stroke="black"
                         />
-                        {this.props.table.room[this.positionNames[this.props.seat]].cards.map((item, key) => {
+                        {Object.keys(playedCards).map((item, key) => {
+                            let ind = key;
+                            key = item;
+                            item = playedCards[key];
+                            if (item === false) {
                                 return (
-                                    <Card
-                                        key={key}
-                                        player={1}
-                                        index={key}
-                                        suit={item.suit}
-                                        rank={item.rank}
-                                        mouseX={this.state.mouseX}
-                                        mouseY={this.state.mouseY}
-                                        screenWidth={window.innerWidth}
-                                    />
-                                )
+                                    <Arrow key={key} points={[0, 0, 0, 0]} />
+                                );
                             }
+                            return (
+                                <PlayedCard
+                                    key={item.id}
+                                    index={key}
+                                    id={item.id}
+                                    x={window.innerWidth / 2 + this.relativeCardPositions[(ind - this.props.seat + this.props.table.first_player + 4)% 4].x - 126/2}
+                                    y={window.innerHeight / 2 + this.relativeCardPositions[(ind - this.props.seat + this.props.table.first_player + 4)% 4].y - 100}
+                                    rank={item.rank}
+                                    suit={item.suit}
+                                />
+                            )}
                         )}
+                        {Object.keys(cards).map((item, key) => {
+                            key = item;
+                            item = cards[key];
+                            return (
+                                <HandCard
+                                    key={item.id}
+                                    player={1}
+                                    index={key}
+                                    id={item.id}
+                                    rank={item.rank}
+                                    suit={item.suit}
+                                    mouseX={this.state.mouseX}
+                                    mouseY={this.state.mouseY}
+                                    screenWidth={window.innerWidth}
+                                    selectCard={() => this.playCard(item.id)}
+                                />
+                            )}
+                        )}
+                        {
+                            this.props.table.trump_chosen[this.props.seat] === null &&
+                            this.props.seat === currentTrick.turn &&
+                            !this.props.table.trump_chosen.some((val) => val === true) &&
+                            <TrumpSelectBox
+                                trumpOption={this.props.table.trump}
+                                choosCallback={(choose) => this.selectTrump(this.props.table.trump, choose)}
+                            />
+                        }
+                        {
+                            this.props.seat === currentTrick.turn &&
+                            this.props.table.trump_chosen.every((val) => val === false) &&
+                            <ForceTrumpSelect
+                                trumpOptions={this.suits.filter((suit) => suit !== this.props.table.trump)}
+                                choosCallback={(trump) => this.selectTrump(trump, true)}
+                            />
+                        }
+                        <Arrow
+                            x={window.innerWidth/2}
+                            y={window.innerHeight/2}
+                            points={[0, 0, this.relativePlayPosition().x, this.relativePlayPosition().y]}
+                            pointerLength={50}
+                            pointerWidth={50}
+                            fill='red'
+                            strokeWidth={4}
+                            stroke='red'
+                        />
+                        {
+                            this.props.table.trump_chosen.some((chosen) => chosen === true) &&
+                            <TrumpDisplay
+                                x={20}
+                                y={20}
+                                width={200}
+                                height={200}
+                                trump={this.props.table.trump}
+                            />
+                        }
                     </Layer>
                 </Stage>
             </div>
         );
     }
 }
+
+Table.contextType = ClientIDHandlerContext;
 
 export default Table;

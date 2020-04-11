@@ -21,22 +21,22 @@ class SeatSelector extends React.Component{
                 <Stage onMouseMove={this.mouseMove} width={window.innerWidth} height={window.innerHeight}>
                     <Seat
                         position={0}
-                        text={this.props.seats.us1 === false ? this.texts[0] :this.props.seats.us1.name }
+                        text={this.props.seats.us1.client === false ? this.texts[0] :this.props.seats.us1.client.name }
                         select={this.selectSeat}
                     />
                     <Seat
                         position={1}
-                        text={this.props.seats.them1 === false ? this.texts[1] :this.props.seats.them1.name }
+                        text={this.props.seats.them1.client === false ? this.texts[1] :this.props.seats.them1.client.name }
                         select={this.selectSeat}
                     />
                     <Seat
                         position={2}
-                        text={this.props.seats.us2 === false ? this.texts[2] :this.props.seats.us2.name }
+                        text={this.props.seats.us2.client === false ? this.texts[2] :this.props.seats.us2.client.name }
                         select={this.selectSeat}
                     />
                     <Seat
                         position={3}
-                        text={this.props.seats.them2 === false ? this.texts[3] :this.props.seats.them2.name }
+                        text={this.props.seats.them2.client === false ? this.texts[3] :this.props.seats.them2.client.name }
                         select={this.selectSeat}
                     />
                 </Stage>
