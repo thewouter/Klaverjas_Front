@@ -8,6 +8,7 @@ import PlayedCard from "./PlayedCard";
 import TrumpSelectBox from "./TrumpSelect/TrumpSelectBox";
 import ForceTrumpSelect from "./TrumpSelect/ForceTrumpSelect";
 import TrumpDisplay from "./TrumpDisplay";
+import TrickHistory from "./TrickHistory/TrickHistory";
 
 class Table extends React.Component {
 
@@ -227,6 +228,15 @@ class Table extends React.Component {
                                 height={200}
                                 trump={this.props.table.trump}
                             />
+                        }
+                        {
+                            this.props.table.tricks.length > 1 &&
+                            <TrickHistory
+                                cards={[
+                                    this.props.table.tricks[this.props.table.tricks.length - 2]['card_' + ((this.props.table.prev_first_player + this.props.seat) % 4 + 1).toString()],
+                                    this.props.table.tricks[this.props.table.tricks.length - 2]['card_' + ((this.props.table.prev_first_player + this.props.seat + 1) % 4 + 1).toString()],
+                                    this.props.table.tricks[this.props.table.tricks.length - 2]['card_' + ((this.props.table.prev_first_player + this.props.seat + 2) % 4 + 1).toString()],
+                                    this.props.table.tricks[this.props.table.tricks.length - 2]['card_' + ((this.props.table.prev_first_player + this.props.seat + 3) % 4 + 1).toString()]]}/>
                         }
                     </Layer>
                 </Stage>

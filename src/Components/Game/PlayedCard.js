@@ -28,7 +28,7 @@ class PlayedCard extends React.Component {
             default:
                 break;
         }
-        let rankNice = ''
+        let rankNice = '';
         switch (props.rank) {
             case '7':
                 rankNice = '7';
