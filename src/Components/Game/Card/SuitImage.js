@@ -25,6 +25,8 @@ class SuitImage extends React.Component {
                 suit_y = image_height - 255;
                 break;
             default:
+                suit_x = image_width;
+                suit_y = image_height;
                 break;
         }
 

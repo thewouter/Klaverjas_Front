@@ -1,5 +1,6 @@
 import React from "react";
-import {Rect, Text, Group} from "react-konva";
+import {Rect, Group, Line} from "react-konva";
+import HistoryCard from "./HistoryCard";
 
 function TrickHistory(props) {
     let dimensions = {
@@ -21,53 +22,49 @@ function TrickHistory(props) {
                 strokeWidth={5}
                 stroke={'black'}
             />
-            <Text
-                key={0}
-                x={dimensions.x}
-                y={dimensions.y + dimensions.height - dimensions.textSize}
-                width={dimensions.width}
-                height={dimensions.textSize}
-                text={props.cards[0].suit + props.cards[0].rank}
-                align="center"
-                verticalAlign="top"
-                fontSize={dimensions.textSize}
-                fill={'black'}
+            <HistoryCard
+                key={props.cards[0].rank + props.cards[0].suit}
+                x={dimensions.x + dimensions.width / 2 - dimensions.textSize}
+                y={dimensions.y + dimensions.height - dimensions.textSize - 10}
+                rank={props.cards[0].rank}
+                suit={props.cards[0].suit}
+                width={2 * dimensions.textSize}
             />
-            <Text
-                key={1}
+            <HistoryCard
+                key={props.cards[1].rank + props.cards[1].suit}
                 x={dimensions.x + 10}
                 y={dimensions.y + (dimensions.height - dimensions.textSize) / 2}
-                width={dimensions.width - 20}
-                height={dimensions.textSize}
-                text={props.cards[1].suit + props.cards[1].rank}
-                align="left"
-                verticalAlign="top"
-                fontSize={dimensions.textSize}
-                fill={'black'}
+                rank={props.cards[1].rank}
+                suit={props.cards[1].suit}
+                width={2 * dimensions.textSize}
             />
-            <Text
-                key={2}
-                x={dimensions.x}
-                y={dimensions.y + dimensions.textSize - 15}
-                width={dimensions.width}
-                height={dimensions.textSize}
-                text={props.cards[2].suit + props.cards[2].rank}
-                align="center"
-                verticalAlign="top"
-                fontSize={dimensions.textSize}
-                fill={'black'}
+            <HistoryCard
+                key={props.cards[2].rank + props.cards[2].suit}
+                x={dimensions.x + dimensions.width / 2 - dimensions.textSize}
+                y={dimensions.y + 10}
+                rank={props.cards[2].rank}
+                suit={props.cards[2].suit}
+                width={2 * dimensions.textSize}
             />
-            <Text
-                key={3}
-                x={dimensions.x + 10}
+            <HistoryCard
+                key={props.cards[3].rank + props.cards[3].suit}
+                x={dimensions.x + dimensions.width - 2 * dimensions.textSize - 10}
                 y={dimensions.y + (dimensions.height - dimensions.textSize) / 2}
-                width={dimensions.width - 20 }
-                height={dimensions.textSize}
-                text={props.cards[3].suit + props.cards[3].rank}
-                align="right"
-                verticalAlign="top"
-                fontSize={dimensions.textSize}
-                fill={'black'}
+                rank={props.cards[3].rank}
+                suit={props.cards[3].suit}
+                width={2 * dimensions.textSize}
+            />
+            <Line
+                x={dimensions.x}
+                y={dimensions.y}
+                points={[0, 0, dimensions.width, dimensions.height]}
+                stroke={'black'}
+            />
+            <Line
+                x={dimensions.x}
+                y={dimensions.y}
+                points={[dimensions.width, 0, 0, dimensions.height]}
+                stroke={'black'}
             />
         </Group>
     )

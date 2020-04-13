@@ -1,6 +1,5 @@
 import React from "react";
-import suits from "../../../img/suits.png";
-import {Group, Image, Rect, Text} from "react-konva";
+import {Group, Rect} from "react-konva";
 import {ClientIDHandlerContext} from "../../Context/ClientIDHandler";
 import SuitImage from "./SuitImage";
 import RankText from "./RankText";
