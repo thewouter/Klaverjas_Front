@@ -1,10 +1,10 @@
 import React from "react";
 import wood from "../../img/wood.jpg";
 import {Ellipse, Arrow, Layer, Stage} from "react-konva";
-import HandCard from "./HandCard";
+import HandCard from "./Card/HandCard";
 import {ClientIDHandlerContext} from "../Context/ClientIDHandler";
 import App from "../App";
-import PlayedCard from "./PlayedCard";
+import PlayedCard from "./Card/PlayedCard";
 import TrumpSelectBox from "./TrumpSelect/TrumpSelectBox";
 import ForceTrumpSelect from "./TrumpSelect/ForceTrumpSelect";
 import TrumpDisplay from "./TrumpDisplay";
@@ -151,13 +151,12 @@ class Table extends React.Component {
                             fillPatternOffsetX={-2000}
                             fillPatternScaleX={0.25}
                             fillPatternScaleY={0.2}
-                            stroke="black"
-                        />
+                            stroke="black"/>
                         {Object.keys(playedCards).map((item, key) => {
                             let ind = key;
                             key = item;
                             item = playedCards[key];
-                            if (item === false) {
+                            if (item === false || item == null) {
                                 return (
                                     <Arrow key={key} points={[0, 0, 0, 0]} />
                                 );
