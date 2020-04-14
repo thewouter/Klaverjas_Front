@@ -40,7 +40,7 @@ class App extends React.Component {
             }
         };
 
-        let url = new URL('http://woutervanharten.nl:3001/.well-known/mercure');
+        let url = new URL('https://mercure.woutervanharten.nl/.well-known/mercure');
         url.searchParams.append('topic', 'klaverjas');
         const eventSource = new EventSource(url);
         eventSource.onmessage = this.receivedMessage;
