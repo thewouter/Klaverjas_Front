@@ -40,8 +40,8 @@ class App extends React.Component {
             }
         };
 
-        let url = new URL('http://localhost:3001/.well-known/mercure');
-        url.searchParams.append('topic', 'http://localhost:3001/klaverjas');
+        let url = new URL('http://woutervanharten.nl:3001/.well-known/mercure');
+        url.searchParams.append('topic', 'klaverjas');
         const eventSource = new EventSource(url);
         eventSource.onmessage = this.receivedMessage;
     }
