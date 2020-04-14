@@ -66,7 +66,7 @@ class Room extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(jsonData)
         };
-        fetch('https://klaverjas.local/room/' + this.props.id, requestOptions)
+        fetch('https://klaverjasapi.woutervanharten.nl/room/' + this.props.id, requestOptions)
             .then(result => {
                 return result.json();
             });
@@ -84,7 +84,7 @@ class Room extends React.Component {
             body: JSON.stringify(jsonData)
         };
         console.log(this.state)
-        fetch('https://klaverjas.local/player/' + this.state.room_api[this.json_keys[seat]].id, requestOptions)
+        fetch('https://klaverjasapi.woutervanharten.nl/player/' + this.state.room_api[this.json_keys[seat]].id, requestOptions)
             .then(result => {
                     return result.json();
             })
@@ -102,7 +102,7 @@ class Room extends React.Component {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({room: this.state.room_api.id})
             };
-            fetch('https://klaverjas.local/game/add', requestOptions)
+            fetch('https://klaverjasapi.woutervanharten.nl/game/add', requestOptions)
                 .then(result => {
                     return result.json();
                 })
@@ -110,7 +110,7 @@ class Room extends React.Component {
                     const requestOptions2 = {
                         method: 'PATCH',
                     };
-                    fetch('https://klaverjas.local/game/' + json.id + '/start', requestOptions2)
+                    fetch('https://klaverjasapi.woutervanharten.nl/game/' + json.id + '/start', requestOptions2)
                         .then(result => {
                             return result.json();
                         })
@@ -129,7 +129,7 @@ class Room extends React.Component {
         const requestOptions = {
             method: 'GET',
         };
-        fetch('https://klaverjas.local/game/' + id, requestOptions)
+        fetch('https://klaverjasapi.woutervanharten.nl/game/' + id, requestOptions)
             .then(result => {
                 return result.json();
             })
@@ -156,7 +156,7 @@ class Room extends React.Component {
         const requestOptions2 = {
             method: 'GET',
         };
-        fetch('https://klaverjas.local/room/' + this.state.room_api.id, requestOptions2)
+        fetch('https://klaverjasapi.woutervanharten.nl/room/' + this.state.room_api.id, requestOptions2)
             .then(result => {
                 return result.json();
             })
@@ -168,7 +168,7 @@ class Room extends React.Component {
     };
 
     componentDidMount() {
-        fetch("https://klaverjas.local/room/" + this.props.id)
+        fetch("https://klaverjasapi.woutervanharten.nl/room/" + this.props.id)
             .then(result => result.json())
             .then(json => {
                 this.setState({room_api: json})

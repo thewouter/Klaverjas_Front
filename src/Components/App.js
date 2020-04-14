@@ -92,7 +92,7 @@ class App extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: this.state.name })
         };
-        fetch('https://klaverjas.local/client/add', requestOptions)
+        fetch('https://klaverjasapi.woutervanharten.nl/client/add', requestOptions)
             .then(result => result.json())
             .then(json => {
                 let clientIDHandler = this.state.clientIDHandler;

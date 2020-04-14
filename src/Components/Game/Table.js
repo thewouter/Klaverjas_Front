@@ -106,9 +106,9 @@ class Table extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({client: this.context.clientID, card: id})
         };
-        fetch('https://klaverjas.local/trick/' + this.props.table.tricks[this.props.table.tricks.length - 1].id + '/play', requestOptions)
+        fetch('https://klaverjasapi.woutervanharten.nl/trick/' + this.props.table.tricks[this.props.table.tricks.length - 1].id + '/play', requestOptions)
             .then(result => {
-                fetch('https://klaverjas.local/player/' + this.props.table.room[this.positionNames[this.props.seat]].id )
+                fetch('https://klaverjasapi.woutervanharten.nl/player/' + this.props.table.room[this.positionNames[this.props.seat]].id )
                     .then(result => result.json())
                     .then(json =>{
                         this.props.updatePlayer(json);
@@ -125,7 +125,7 @@ class Table extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({trump_chosen: trumpChosen, trump: trump})
         };
-        fetch('https://klaverjas.local/game/' + this.props.table.id, requestOptions)
+        fetch('https://klaverjasapi.woutervanharten.nl/game/' + this.props.table.id, requestOptions)
             .then(result => {
                 return result.json();
             });
