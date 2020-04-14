@@ -1,7 +1,7 @@
 import React from "react";
 import {Rect, Group, Text, Line, Layer} from "react-konva";
 import HandCard from "../Card/HandCard";
-import PointsHistoryPart from "./PointsHistoryPart";
+import PointHistoryPart from "./PointHistoryPart";
 
 function PointHistory(props) {
     let dimensions = {
@@ -15,8 +15,8 @@ function PointHistory(props) {
     let totalScore = [0, 0]
 
     props.points.forEach((points) => {
-        totalScore[0] += points[0];
-        totalScore[1] += points[1];
+        totalScore[0] += points[0] + points[2];
+        totalScore[1] += points[1] + points[3];
     });
 
     return (
@@ -69,7 +69,7 @@ function PointHistory(props) {
                 key = item;
                 item = props.points[key];
                 return (
-                    <PointsHistoryPart
+                    <PointHistoryPart
                         key={key}
                         x={dimensions.x}
                         y={dimensions.y + 50 + key * dimensions.fontSize}
@@ -85,7 +85,7 @@ function PointHistory(props) {
                 points={[0, 0, dimensions.width - 20, 0]}
                 stroke={'black'}
             />
-            <PointsHistoryPart
+            <PointHistoryPart
                 x={dimensions.x}
                 y={dimensions.y + dimensions.height - dimensions.fontSize}
                 width={dimensions.width}

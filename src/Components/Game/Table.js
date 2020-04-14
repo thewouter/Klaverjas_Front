@@ -10,6 +10,8 @@ import ForceTrumpSelect from "./TrumpSelect/ForceTrumpSelect";
 import TrumpDisplay from "./TrumpDisplay";
 import TrickHistory from "./TrickHistory/TrickHistory";
 import PointHistory from "./PointsHistory/PointHistory";
+import ChairSeat from "./ChairSeat";
+import PlaySeat from "./PlaySeat";
 
 class Table extends React.Component {
 
@@ -116,7 +118,7 @@ class Table extends React.Component {
 
     selectTrump = (trump, choose) => {
         let trumpChosen = this.props.table.trump_chosen;
-        trumpChosen[this.props.seat] = choose;
+        trumpChosen[(this.props.seat - this.props.table.first_player + 4) % 4] = choose;
         console.log(this.props.table.room.id)
         const requestOptions = {
             method: 'PATCH',
@@ -131,7 +133,6 @@ class Table extends React.Component {
 
     render() {
         const cards = Object.values(this.props.table.room[this.positionNames[this.props.seat]].cards);
-
         const currentTrick = this.props.table.tricks[this.props.table.tricks.length - 1];
         const playedCards = [
             currentTrick.card_1,
@@ -152,7 +153,9 @@ class Table extends React.Component {
                             fillPatternOffsetX={-2000}
                             fillPatternScaleX={0.25}
                             fillPatternScaleY={0.2}
-                            stroke="black"/>
+                            stroke="black"
+                            radiusX={500}
+                            radiusY={200}/>
                         {Object.keys(playedCards).map((item, key) => {
                             let ind = key;
                             key = item;
@@ -193,8 +196,8 @@ class Table extends React.Component {
                             )}
                         )}
                         {
-                            this.props.table.trump_chosen[this.props.seat] === null &&
-                            this.props.seat === currentTrick.turn &&
+                            this.props.table.trump_chosen[(this.props.seat - this.props.table.first_player + 4) % 4] === null &&
+                            this.props.seat === (currentTrick.turn + this.props.table.first_player + 4) % 4 &&
                             !this.props.table.trump_chosen.some((val) => val === true) &&
                             <TrumpSelectBox
                                 trumpOption={this.props.table.trump}
@@ -202,7 +205,7 @@ class Table extends React.Component {
                             />
                         }
                         {
-                            this.props.seat === currentTrick.turn &&
+                            this.props.seat === (currentTrick.turn + this.props.table.first_player + 4) % 4 &&
                             this.props.table.trump_chosen.every((val) => val === false) &&
                             <ForceTrumpSelect
                                 trumpOptions={this.suits.filter((suit) => suit !== this.props.table.trump)}
@@ -242,6 +245,15 @@ class Table extends React.Component {
                         <PointHistory
                             points={this.props.table.points}
                         />
+                        <ChairSeat
+                            pos={(this.props.table.first_player - this.props.seat + 4) % 4}
+                        />
+                        {
+                            this.props.table.trump_chosen.some((val) => val === true) &&
+                            <PlaySeat
+                                pos={(this.props.table.first_player + this.props.table.trump_chosen.indexOf(true) - this.props.seat + 4) % 4}
+                            />
+                        }
                     </Layer>
                 </Stage>
             </div>

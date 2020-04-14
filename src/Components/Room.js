@@ -193,7 +193,6 @@ class Room extends React.Component {
     };
 
     trickAdded = (json) => {
-        console.log(json)
         if (json.game === this.state.game_api.id){
             if (this.state.game_api.tricks.filter((trick) => trick.id === json.id).length === 0){
                 this.state.game_api.tricks.push(json);
