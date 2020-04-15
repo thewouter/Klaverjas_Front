@@ -22,7 +22,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            name: localStorage.getItem("userName") || faker.name.firstName(),
+            name: localStorage.getItem("userName") || "",
             screen: localStorage.getItem("room") === null ? this.screens.lobby : this.screens.room,
             room: localStorage.getItem("room") || -1,
             clientIDHandler: {

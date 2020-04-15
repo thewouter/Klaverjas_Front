@@ -48,6 +48,11 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.App-nameField:invalid {
+  border-color: red;
+  border-width: thick;
+  border-radius: 10px;
+}
 
 .App {
   background-color: #282c34;

@@ -12,8 +12,6 @@ class Start extends React.Component {
             rooms: [],
             currentRoom: -1
         };
-
-
     }
 
     removedRoom = (json) => {
@@ -74,18 +72,31 @@ class Start extends React.Component {
         return (
             <div>
                 <form>
-                    <input className="App-nameField" type="string" onChange={this.props.handler}
-                           value={this.props.name}/>
+                    <input
+                        className="App-nameField"
+                        type="string"
+                        onChange={this.props.handler}
+                        value={this.props.name}
+                        placeholder={'Username'}
+                        required
+                        pattern="\S+"
+                    />
                 </form>
                 <div className="row">
                     <div className="column-new">
                         <form>
                             <label>
-                                Name:
-                                <input type="text" name="serverName" value={this.state.newServerName}
-                                       onChange={this.changeServerName}/>
+                                <input
+                                    type="text"
+                                    name="serverName"
+                                    value={this.state.newServerName}
+                                    placeholder={'Name'}
+                                    onChange={this.changeServerName}
+                                />
                             </label>
-                            <button className="btn btn-lg btn-info" onClick={this.newServer}>New room</button>
+                            <button
+                                className="btn btn-lg btn-info"
+                                onClick={this.newServer}>Add room</button>
                         </form>
                     </div>
                     <div className="column-join">
