@@ -8,7 +8,7 @@ function PointHistory(props) {
         x: window.innerWidth - 210,
         y: 290,
         width: 200,
-        height: 600,
+        height: window.innerHeight - 300,
         fontSize: 30
     };
 
