@@ -40,8 +40,8 @@ class App extends React.Component {
             }
         };
 
-        let url = new URL('https://mercure.woutervanharten.nl/.well-known/mercure');
-        url.searchParams.append('topic', 'klaverjas');
+        let url = new URL(process.env.REACT_APP_MERCURE_URL + '/.well-known/mercure');
+        url.searchParams.append('topic', 'klaverjas_dev');
         const eventSource = new EventSource(url);
         eventSource.onmessage = this.receivedMessage;
     }
@@ -71,7 +71,7 @@ class App extends React.Component {
         let clientIDHandler = this.state.clientIDHandler;
         delete clientIDHandler.mercureListeners[object][method];
         this.setState({clientIDHandler: clientIDHandler})
-    }
+    };
 
     handleClientIDHandler = (clientID) => {
         this.setState({clientID: clientID});
@@ -92,7 +92,7 @@ class App extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: this.state.name })
         };
-        fetch('https://klaverjasapi.woutervanharten.nl/client/add', requestOptions)
+        fetch(process.env.REACT_APP_API_URL + '/client/add', requestOptions)
             .then(result => result.json())
             .then(json => {
                 let clientIDHandler = this.state.clientIDHandler;

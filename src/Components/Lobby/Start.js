@@ -30,7 +30,7 @@ class Start extends React.Component {
     };
 
     componentDidMount() {
-        fetch('https://klaverjasapi.woutervanharten.nl/room/list')
+        fetch(process.env.REACT_APP_API_URL + '/room/list')
             .then(result => result.json())
             .then(json => this.setState({
                     rooms: Object.values(json)
@@ -46,7 +46,7 @@ class Start extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({name: this.state.newServerName})
         };
-        fetch('https://klaverjasapi.woutervanharten.nl/room/add', requestOptions)
+        fetch(process.env.REACT_APP_API_URL + '/room/add', requestOptions)
             .then(result => result.json());
         this.setState({newServerName: ''});
         event.preventDefault();
@@ -60,7 +60,7 @@ class Start extends React.Component {
         const requestOptions = {
             method: 'DELETE'
         };
-        fetch('https://klaverjasapi.woutervanharten.nl/room/' + id, requestOptions)
+        fetch(process.env.REACT_APP_API_URL + '/room/' + id, requestOptions)
             .then(result => {
                 return result.json();
             })

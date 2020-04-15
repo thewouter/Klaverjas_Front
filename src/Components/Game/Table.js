@@ -106,9 +106,9 @@ class Table extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({client: this.context.clientID, card: id})
         };
-        fetch('https://klaverjasapi.woutervanharten.nl/trick/' + this.props.table.tricks[this.props.table.tricks.length - 1].id + '/play', requestOptions)
+        fetch(process.env.REACT_APP_API_URL + '/trick/' + this.props.table.tricks[this.props.table.tricks.length - 1].id + '/play', requestOptions)
             .then(result => {
-                fetch('https://klaverjasapi.woutervanharten.nl/player/' + this.props.table.room[this.positionNames[this.props.seat]].id )
+                fetch(process.env.REACT_APP_API_URL + '/player/' + this.props.table.room[this.positionNames[this.props.seat]].id )
                     .then(result => result.json())
                     .then(json =>{
                         this.props.updatePlayer(json);
@@ -125,7 +125,7 @@ class Table extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({trump_chosen: trumpChosen, trump: trump})
         };
-        fetch('https://klaverjasapi.woutervanharten.nl/game/' + this.props.table.id, requestOptions)
+        fetch(process.env.REACT_APP_API_URL + '/game/' + this.props.table.id, requestOptions)
             .then(result => {
                 return result.json();
             });
@@ -246,12 +246,12 @@ class Table extends React.Component {
                             points={this.props.table.points}
                         />
                         <ChairSeat
-                            pos={(this.props.table.first_player - this.props.seat + 4) % 4}
+                            pos={(this.props.table.chair - this.props.seat + 4) % 4}
                         />
                         {
                             this.props.table.trump_chosen.some((val) => val === true) &&
                             <PlaySeat
-                                pos={(this.props.table.first_player + this.props.table.trump_chosen.indexOf(true) - this.props.seat + 4) % 4}
+                                pos={(this.props.table.chair + this.props.table.trump_chosen.indexOf(true) - this.props.seat + 4) % 4}
                             />
                         }
                     </Layer>
