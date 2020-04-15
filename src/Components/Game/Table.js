@@ -244,6 +244,7 @@ class Table extends React.Component {
                         }
                         <PointHistory
                             points={this.props.table.points}
+                            seat={this.props.seat}
                         />
                         <ChairSeat
                             pos={(this.props.table.chair - this.props.seat + 4) % 4}

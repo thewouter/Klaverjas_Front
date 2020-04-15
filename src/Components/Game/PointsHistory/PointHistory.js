@@ -1,5 +1,5 @@
 import React from "react";
-import {Rect, Group, Text, Line, Layer} from "react-konva";
+import {Rect, Group, Text, Line, Ellipse} from "react-konva";
 import HandCard from "../Card/HandCard";
 import PointHistoryPart from "./PointHistoryPart";
 
@@ -41,6 +41,15 @@ function PointHistory(props) {
                 y={dimensions.y + 50}
                 points={[0, 0, dimensions.width - 20, 0]}
                 stroke={'black'}
+            />
+
+            <Ellipse
+                x={dimensions.x + 5 + (dimensions.width / 2  - 8)* (props.seat % 2) + dimensions.width / 4}
+                y={dimensions.y + 8 + dimensions.fontSize / 2}
+                radiusX={dimensions.width / 4}
+                radiusY={dimensions.fontSize / 1.5}
+                stroke={'red'}
+                strokeWidth={5}
             />
             <Text
                 x={dimensions.x + 10}
