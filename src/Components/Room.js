@@ -16,24 +16,32 @@ class Room extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            seat: -1,
-            room_api: { // defaults
-                in_game: false,
-                us1: {
-                    client: false
-                },
-                us2: {
-                    client: false
-                },
-                them1: {
-                    client: false
-                },
-                them2: {
-                    client: false
-                }
+        let room = { // defaults
+            in_game: false,
+            us1: {
+                client: false,
+                cards: {}
             },
+            us2: {
+                client: false,
+                cards: {}
+            },
+            them1: {
+                client: false,
+                cards: {}
+            },
+            them2: {
+                client: false,
+                cards: {}
+            }
+        };
+        this.state = {
+            seat: 0,
+            room_api: room,
             game_api: {
+                room: room,
+                points: [],
+                chair: 0,
                 tricks: [
                     {
                         player_1: {
@@ -83,7 +91,6 @@ class Room extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(jsonData)
         };
-        console.log(this.state)
         fetch(process.env.REACT_APP_API_URL + '/player/' + this.state.room_api[this.json_keys[seat]].id, requestOptions)
             .then(result => {
                     return result.json();

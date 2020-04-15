@@ -12,7 +12,7 @@ function PointHistory(props) {
         fontSize: 30
     };
 
-    let totalScore = [0, 0]
+    let totalScore = [0, 0];
 
     props.points.forEach((points) => {
         totalScore[0] += points[0] + points[2];
