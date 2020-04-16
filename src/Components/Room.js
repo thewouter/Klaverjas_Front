@@ -36,7 +36,7 @@ class Room extends React.Component {
             }
         };
         this.state = {
-            seat: 0,
+            seat: -1,
             room_api: room,
             game_api: {
                 room: room,

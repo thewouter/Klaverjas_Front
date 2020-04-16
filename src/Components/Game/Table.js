@@ -12,6 +12,7 @@ import TrickHistory from "./TrickHistory/TrickHistory";
 import PointHistory from "./PointsHistory/PointHistory";
 import ChairSeat from "./ChairSeat";
 import PlaySeat from "./PlaySeat";
+import HandCards from "./Card/HandCards";
 
 class Table extends React.Component {
 
@@ -177,24 +178,13 @@ class Table extends React.Component {
                                 />
                             )}
                         )}
-                        {Object.keys(cards).map((item, key) => {
-                            key = item;
-                            item = cards[key];
-                            return (
-                                <HandCard
-                                    key={item.id}
-                                    player={1}
-                                    index={key}
-                                    id={item.id}
-                                    rank={item.rank}
-                                    suit={item.suit}
-                                    mouseX={this.state.mouseX}
-                                    mouseY={this.state.mouseY}
-                                    screenWidth={window.innerWidth}
-                                    selectCard={() => this.playCard(item.id)}
-                                />
-                            )}
-                        )}
+                        <HandCards
+                            mouseX={this.state.mouseX}
+                            mouseY={this.state.mouseY}
+                            cards={cards}
+                            trump={this.props.table.trump}
+                            playCard={this.playCard}
+                        />
                         {
                             this.props.table.trump_chosen[(this.props.seat - this.props.table.first_player + 4) % 4] === null &&
                             this.props.seat === (currentTrick.turn + this.props.table.first_player + 4) % 4 &&
