@@ -57,15 +57,11 @@ function HandCards(props) {
     let orderedCards = {};
     props.cards.forEach((card) => {
         if (card.suit === props.trump) {
-            orderedCards[8*order[card.suit] + trump_order[card.rank]] = card;
+            orderedCards[8 * order[card.suit] + trump_order[card.rank]] = card;
         } else {
-            orderedCards[8*order[card.suit] + normal_order[card.rank]] = card;
+            orderedCards[8 * order[card.suit] + normal_order[card.rank]] = card;
         }
     });
-
-
-    console.log(orderedCards);
-
 
     return (
         <Group>

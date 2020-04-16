@@ -1,6 +1,6 @@
 import React from "react";
 import wood from "../../img/wood.jpg";
-import {Ellipse, Arrow, Layer, Stage} from "react-konva";
+import {Ellipse, Arrow, Layer, Group, Text, Stage} from "react-konva";
 import HandCard from "./Card/HandCard";
 import {ClientIDHandlerContext} from "../Context/ClientIDHandler";
 import App from "../App";
@@ -156,14 +156,51 @@ class Table extends React.Component {
                             fillPatternScaleY={0.2}
                             stroke="black"
                             radiusX={500}
-                            radiusY={200}/>
+                            radiusY={200}
+                        />
+                        {
+                            this.props.table.room[this.positionNames[(this.props.seat + 1) % 4]].client !== false &&
+                            <Text
+                                x={window.innerWidth / 4}
+                                y={window.innerHeight / 2 - 20}
+                                text={this.props.table.room[this.positionNames[(this.props.seat + 1) % 4]].client.name}
+                                fill={'white'}
+                                fontSize={40}
+                            />
+                        }
+                        {
+                            this.props.table.room[this.positionNames[(this.props.seat + 2) % 4]].client !== false &&
+                            <Text
+                                x={window.innerWidth / 2 - 100}
+                                y={window.innerHeight / 4}
+                                text={this.props.table.room[this.positionNames[(this.props.seat + 2) % 4]].client.name}
+                                width={200}
+                                align={'center'}
+                                fill={'white'}
+                                fontSize={40}
+                            />
+                        }
+                        {
+                            this.props.table.room[this.positionNames[(this.props.seat + 3) % 4]].client !== false &&
+                            <Text
+                                x={3 * window.innerWidth / 4 - 200}
+                                y={window.innerHeight / 2 - 20}
+                                text={this.props.table.room[this.positionNames[(this.props.seat + 3) % 4]].client.name}
+                                width={200}
+                                align={'right'}
+                                fill={'white'}
+                                fontSize={40}
+                            />
+                        }
+
+
                         {Object.keys(playedCards).map((item, key) => {
                             let ind = key;
                             key = item;
                             item = playedCards[key];
                             if (item === false || item == null) {
                                 return (
-                                    <Arrow key={key} points={[0, 0, 0, 0]} />
+                                    <Group key={ind}></Group>
                                 );
                             }
                             return (
