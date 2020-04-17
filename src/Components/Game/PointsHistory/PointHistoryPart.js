@@ -4,7 +4,7 @@ import {Text, Group} from "react-konva";
 function PointHistoryPart(props) {
 
     let usMeld;
-    switch (props.score[3]) {
+    switch (props.score[2]) {
         case 0:
             usMeld = '';
             break;

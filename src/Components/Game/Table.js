@@ -140,11 +140,10 @@ class Table extends React.Component {
             currentTrick.card_3,
             currentTrick.card_4,
                 ];
-        console.log(1920/window.innerWidth);
         return (
             <div >
                 <Stage onMouseMove={this.mouseMove} width={window.innerWidth} height={window.innerHeight}>
-                    <Layer scaleX={window.innerWidth/1920} scaleY={window.innerWidth/1920} onClick={() => console.log('test')}>
+                    <Layer scaleX={window.innerWidth/1920} scaleY={window.innerWidth/1920}>
                         <Ellipse
                             x={1920 / 2}
                             y={940 / 2}
