@@ -14,19 +14,19 @@ class PlaySeat extends React.Component{
     positions = {
         0: {
             x: 110,
-            y: window.innerHeight - 150
+            y: 940 - 150
         },
         1: {
             x: 10,
-            y: window.innerHeight / 2
+            y: 940 / 2
         },
         2: {
-            x: window.innerWidth / 2 + 60,
+            x: 1920 / 2 + 60,
             y: 10
         },
         3: {
-            x: window.innerWidth - 315,
-            y: window.innerHeight / 2
+            x: 1920 - 315,
+            y: 940 / 2
         }
     };
 

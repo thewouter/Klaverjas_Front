@@ -11,12 +11,12 @@ class Seat extends React.Component {
     padding = 150;
 
     positions = {
-        xm: (window.innerWidth - this.selector_size.width) / 2,
+        xm: (1920 - this.selector_size.width) / 2,
         xs: this.padding,
-        xl: window.innerWidth - this.padding - this.selector_size.width,
-        ym: (window.innerHeight - this.selector_size.height) / 2,
+        xl: 1920 - this.padding - this.selector_size.width,
+        ym: (940 - this.selector_size.height) / 2,
         ys: this.padding,
-        yl: window.innerHeight - this.padding - this.selector_size.height
+        yl: 940 - this.padding - this.selector_size.height
     };
 
     positionMap = {

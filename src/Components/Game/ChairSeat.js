@@ -14,19 +14,19 @@ class ChairSeat extends React.Component{
     positions = {
         0: {
             x: 10,
-            y: window.innerHeight - 150
+            y: 940 - 150
         },
         1: {
             x: 10,
-            y: window.innerHeight / 2 - 115
+            y: 940 / 2 - 115
         },
         2: {
-            x: window.innerWidth / 2 - 155,
+            x: 1920 / 2 - 155,
             y: 10
         },
         3: {
-            x: window.innerWidth - 300,
-            y: window.innerHeight / 2 - 115
+            x: 1920 - 300,
+            y: 940 / 2 - 115
         }
     };
 

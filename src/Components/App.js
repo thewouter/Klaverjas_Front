@@ -41,7 +41,7 @@ class App extends React.Component {
         };
 
         let url = new URL(process.env.REACT_APP_MERCURE_URL + '/.well-known/mercure');
-        url.searchParams.append('topic', 'klaverjas_dev');
+        url.searchParams.append('topic', process.env.REACT_APP_MERCURE_TOPIC);
         const eventSource = new EventSource(url);
         eventSource.onmessage = this.receivedMessage;
     }
@@ -78,7 +78,7 @@ class App extends React.Component {
     };
 
     windowsResized = () => {
-        this.setState({resize: window.innerHeight + window.innerWidth});
+        this.setState({resize: 940 + 1920});
     };
 
     screenChange = (screen) => {

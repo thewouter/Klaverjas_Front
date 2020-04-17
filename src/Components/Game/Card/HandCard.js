@@ -18,7 +18,7 @@ class HandCard extends React.Component {
     };
 
     render() {
-        let y = window.innerHeight - 250;
+        let y = 940 - 250;
         let x = 140 * this.props.index + (this.props.screenWidth - 8 * 140) / 2;
         let mouseX =this.props.mouseX;
         let mouseY = this.props.mouseY;

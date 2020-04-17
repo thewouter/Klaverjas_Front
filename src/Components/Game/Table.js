@@ -38,18 +38,18 @@ class Table extends React.Component {
     playerPositions = {
         0: {
             x: 0,
-            y: window.innerHeight * 3 / 10
+            y: 940 * 3 / 10
         },
         1: {
-            x: - window.innerWidth * 3 / 10,
+            x: - 1920 * 3 / 10,
             y: 0
         },
         2: {
             x: 0,
-            y: - window.innerHeight * 3 / 10
+            y: - 940 * 3 / 10
         },
         3: {
-            x: window.innerWidth * 3 / 10,
+            x: 1920 * 3 / 10,
             y: 0
         },
     };
@@ -60,15 +60,15 @@ class Table extends React.Component {
             y: 0
         },
         1: {
-            x: - window.innerWidth * 3 / 10,
+            x: - 1920 * 3 / 10,
             y: 0
         },
         2: {
             x: 0,
-            y: - window.innerHeight * 4 / 10
+            y: - 940 * 4 / 10
         },
         3: {
-            x: window.innerWidth * 3 / 10,
+            x: 1920 * 3 / 10,
             y: 0
         },
     };
@@ -84,8 +84,8 @@ class Table extends React.Component {
     }
 
     mouseMove = (event) => {
-        let mouseX = event.evt.clientX;
-        let mouseY = event.evt.clientY;
+        let mouseX = event.evt.clientX * 1920 / window.innerWidth;
+        let mouseY = event.evt.clientY * 1920 / window.innerWidth;
         this.setState({mouseX: mouseX, mouseY: mouseY})
     };
 
@@ -120,7 +120,6 @@ class Table extends React.Component {
     selectTrump = (trump, choose) => {
         let trumpChosen = this.props.table.trump_chosen;
         trumpChosen[(this.props.seat - this.props.table.first_player + 4) % 4] = choose;
-        console.log(this.props.table.room.id)
         const requestOptions = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -141,15 +140,16 @@ class Table extends React.Component {
             currentTrick.card_3,
             currentTrick.card_4,
                 ];
+        console.log(1920/window.innerWidth);
         return (
             <div >
                 <Stage onMouseMove={this.mouseMove} width={window.innerWidth} height={window.innerHeight}>
-                    <Layer >
+                    <Layer scaleX={window.innerWidth/1920} scaleY={window.innerWidth/1920} onClick={() => console.log('test')}>
                         <Ellipse
-                            x={window.innerWidth / 2}
-                            y={window.innerHeight / 2}
-                            width={0.5*window.innerWidth}
-                            height={0.25*window.innerWidth}
+                            x={1920 / 2}
+                            y={940 / 2}
+                            width={0.5*1920}
+                            height={0.25*1920}
                             fillPatternImage={this.state.fillPatternImage}
                             fillPatternOffsetX={-2000}
                             fillPatternScaleX={0.25}
@@ -161,8 +161,8 @@ class Table extends React.Component {
                         {
                             this.props.table.room[this.positionNames[(this.props.seat + 1) % 4]].client !== false &&
                             <Text
-                                x={window.innerWidth / 4}
-                                y={window.innerHeight / 2 - 20}
+                                x={1920 / 4}
+                                y={940 / 2 - 20}
                                 text={this.props.table.room[this.positionNames[(this.props.seat + 1) % 4]].client.name}
                                 fill={'white'}
                                 fontSize={40}
@@ -171,8 +171,8 @@ class Table extends React.Component {
                         {
                             this.props.table.room[this.positionNames[(this.props.seat + 2) % 4]].client !== false &&
                             <Text
-                                x={window.innerWidth / 2 - 100}
-                                y={window.innerHeight / 4}
+                                x={1920 / 2 - 100}
+                                y={940 / 4}
                                 text={this.props.table.room[this.positionNames[(this.props.seat + 2) % 4]].client.name}
                                 width={200}
                                 align={'center'}
@@ -183,8 +183,8 @@ class Table extends React.Component {
                         {
                             this.props.table.room[this.positionNames[(this.props.seat + 3) % 4]].client !== false &&
                             <Text
-                                x={3 * window.innerWidth / 4 - 200}
-                                y={window.innerHeight / 2 - 20}
+                                x={3 * 1920 / 4 - 200}
+                                y={940 / 2 - 20}
                                 text={this.props.table.room[this.positionNames[(this.props.seat + 3) % 4]].client.name}
                                 width={200}
                                 align={'right'}
@@ -208,8 +208,8 @@ class Table extends React.Component {
                                     key={item.id}
                                     index={key}
                                     id={item.id}
-                                    x={window.innerWidth / 2 + this.relativeCardPositions[(ind - this.props.seat + this.props.table.first_player + 4)% 4].x - 126/2}
-                                    y={window.innerHeight / 2 + this.relativeCardPositions[(ind - this.props.seat + this.props.table.first_player + 4)% 4].y - 100}
+                                    x={1920 / 2 + this.relativeCardPositions[(ind - this.props.seat + this.props.table.first_player + 4)% 4].x - 126/2}
+                                    y={940 / 2 + this.relativeCardPositions[(ind - this.props.seat + this.props.table.first_player + 4)% 4].y - 100}
                                     rank={item.rank}
                                     suit={item.suit}
                                 />
@@ -240,8 +240,8 @@ class Table extends React.Component {
                             />
                         }
                         <Arrow
-                            x={window.innerWidth/2}
-                            y={window.innerHeight/2}
+                            x={1920/2}
+                            y={940/2}
                             points={[0, 0, this.relativePlayPosition().x, this.relativePlayPosition().y]}
                             pointerLength={50}
                             pointerWidth={50}

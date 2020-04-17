@@ -18,7 +18,7 @@ class SeatSelector extends React.Component{
     render() {
         return (
             <div>
-                <Stage onMouseMove={this.mouseMove} width={window.innerWidth} height={window.innerHeight}>
+                <Stage onMouseMove={this.mouseMove} width={1920} height={940}>
                     <Seat
                         position={0}
                         text={this.props.seats.us1.client === false ? this.texts[0] :this.props.seats.us1.client.name }

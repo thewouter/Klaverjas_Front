@@ -4,7 +4,7 @@ import HistoryCard from "./HistoryCard";
 
 function TrickHistory(props) {
     let dimensions = {
-        x: window.innerWidth - 210,
+        x: 1920 - 210,
         y: 80,
         width: 200,
         height: 200,

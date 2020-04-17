@@ -7,8 +7,8 @@ class ForceTrumpSelect extends React.Component{
     dimensions = {
         width: 600,
         height: 300,
-        x: window.innerWidth/2 -300,
-        y: window.innerHeight/2 -150,
+        x: 1920/2 -300,
+        y: 940/2 -150,
         margin: 5,
         buttonHeight: 90
     };

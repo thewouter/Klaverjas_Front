@@ -7,8 +7,8 @@ class TrumpSelectBox extends React.Component{
     dimensions = {
         width: 400,
         height: 300,
-        x: window.innerWidth/2 -200,
-        y: window.innerHeight/2 -150,
+        x: 1920/2 -200,
+        y: 940/2 -150,
         margin: 5,
         buttonHeight: 90
     };

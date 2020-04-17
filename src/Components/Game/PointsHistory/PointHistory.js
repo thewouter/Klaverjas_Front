@@ -5,14 +5,14 @@ import PointHistoryPart from "./PointHistoryPart";
 
 function PointHistory(props) {
     let dimensions = {
-        x: window.innerWidth - 210,
+        x: 1920 - 210,
         y: 290,
         width: 200,
-        height: window.innerHeight - 300,
+        height: 940 - 300,
         fontSize: 30
     };
 
-    let totalScore = [0, 0];
+    let totalScore = [0, 0, 0, 0];
 
     props.points.forEach((points) => {
         totalScore[0] += points[0] + points[2];

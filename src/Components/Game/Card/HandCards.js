@@ -80,7 +80,7 @@ function HandCards(props) {
                             suit={item.suit}
                             mouseX={props.mouseX}
                             mouseY={props.mouseY}
-                            screenWidth={window.innerWidth}
+                            screenWidth={1920}
                             selectCard={() => props.playCard(item.id)}
                         />
                     )}
