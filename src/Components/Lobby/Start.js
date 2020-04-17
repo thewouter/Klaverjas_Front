@@ -74,6 +74,7 @@ class Start extends React.Component {
                 <form>
                     <input
                         className="App-nameField"
+                        id={'set-username'}
                         type="string"
                         onChange={this.props.handler}
                         value={this.props.name}

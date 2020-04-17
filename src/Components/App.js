@@ -87,6 +87,10 @@ class App extends React.Component {
 
 
     toRoom = (id) => {
+        if(this.state.name.length < 1) {
+            document.getElementById('set-username').select();
+            return;
+        }
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
