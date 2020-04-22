@@ -249,7 +249,7 @@ class Table extends React.Component {
                             stroke='red'
                         />
                         {
-                            this.props.table.trump_chosen.some((chosen) => chosen === true) &&
+                            this.props.table.trump &&
                             <TrumpDisplay
                                 x={20}
                                 y={20}
