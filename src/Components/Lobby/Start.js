@@ -40,7 +40,7 @@ class Start extends React.Component {
 
     newServer = (event) => {
         let name = this.state.newServerName;
-        if (name > 20) {
+        if (name.length > 20) {
             name = name.substring(1,20);
         }
         const requestOptions = {
