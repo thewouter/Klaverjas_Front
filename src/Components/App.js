@@ -91,10 +91,14 @@ class App extends React.Component {
             document.getElementById('set-username').select();
             return;
         }
+        let name = this.state.name;
+        if (this.state.name.length > 49) {
+            name = name.substring(1,49);
+        }
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: this.state.name })
+            body: JSON.stringify({ name: name })
         };
         fetch(process.env.REACT_APP_API_URL + '/client/add', requestOptions)
             .then(result => result.json())
