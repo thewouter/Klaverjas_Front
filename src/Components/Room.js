@@ -104,28 +104,16 @@ class Room extends React.Component {
     startGame = () => {
         if (this.state.room_api.them1.client !== false && this.state.room_api.them2.client !== false &&
             this.state.room_api.us1.client !== false && this.state.room_api.us2.client !== false) {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({room: this.state.room_api.id})
+            const requestOptions2 = {
+                method: 'PATCH',
             };
-            fetch(process.env.REACT_APP_API_URL + '/game/add', requestOptions)
+            fetch(process.env.REACT_APP_API_URL + '/game/' + this.state.game_api.id + '/start', requestOptions2)
                 .then(result => {
                     return result.json();
                 })
                 .then(json => {
-                    const requestOptions2 = {
-                        method: 'PATCH',
-                    };
-                    fetch(process.env.REACT_APP_API_URL + '/game/' + json.id + '/start', requestOptions2)
-                        .then(result => {
-                            return result.json();
-                        })
-                        .then(json => {
-                            this.setState({game_api: json});
-                            this.reloadRoom()
-                        })
-                        .catch(error => console.log(error));
+                    this.setState({game_api: json});
+                    this.reloadRoom()
                 })
                 .catch(error => console.log(error));
 
@@ -169,7 +157,18 @@ class Room extends React.Component {
             })
             .then(json => {
                 this.setState({room_api: json});
+                const requestOptions3 = {
+                    method: 'GET',
+                };
+                fetch(process.env.REACT_APP_API_URL + '/game/' + json.games[json.games.length - 1], requestOptions3)
+                    .then(result => {
+                        return result.json();
+                    })
+                    .then(json => {
+                        this.setState({game_api: json});
 
+                    })
+                    .catch(error => console.log(error));
             })
             .catch(error => console.log(error));
     };
@@ -179,6 +178,18 @@ class Room extends React.Component {
             .then(result => result.json())
             .then(json => {
                 this.setState({room_api: json})
+                const requestOptions3 = {
+                    method: 'GET',
+                };
+                fetch(process.env.REACT_APP_API_URL + '/game/' + json.games[json.games.length - 1], requestOptions3)
+                    .then(result => {
+                        return result.json();
+                    })
+                    .then(json => {
+                        this.setState({game_api: json});
+
+                    })
+                    .catch(error => console.log(error));
                 if (json.in_game) {
                     this.reloadGame(json.current_game)
                 }
@@ -251,7 +262,7 @@ class Room extends React.Component {
         let game_api = this.state.game_api;
         let tricks = game_api.tricks;
 
-        if (game_api) {
+        if (game_api && game_api.tricks.length > 0) {
             switch (json.id) {
                 case game_api.tricks[tricks.length - 1].player_1.id:
                     game_api.tricks[tricks.length - 1].player_1 = json;
