@@ -1,6 +1,7 @@
 import React from "react";
 import {Group, Rect, Text} from "react-konva";
 import YesNoButton from "./YesNoButton";
+import SuitImage from "../Card/SuitImage";
 
 class ForceTrumpSelect extends React.Component{
 
@@ -11,13 +12,6 @@ class ForceTrumpSelect extends React.Component{
         y: 940/2 -150,
         margin: 5,
         buttonHeight: 90
-    };
-
-    fullSuitNames = {
-        s: "Spades",
-        d: "Diamonds",
-        c: "Clubs",
-        h: "Hearts"
     };
 
     chooseTrump = (trump) => {
@@ -50,17 +44,28 @@ class ForceTrumpSelect extends React.Component{
                     let ind = key;
                     key = item;
                     item = this.props.trumpOptions[key];
+                    let x = this.dimensions.x + this.dimensions.margin * 2 + ((this.dimensions.width - 8 * this.dimensions.margin) / 3 + 2 * this.dimensions.margin) * ind;
+                    let y = this.dimensions.y + this.dimensions.height - this.dimensions.margin * 2 - this.dimensions.buttonHeight;
+                    let width = (this.dimensions.width - 8 * this.dimensions.margin) / 3;
+                    let height = this.dimensions.buttonHeight;
                     return (
-                        <YesNoButton
-                            key={key}
-                            x={this.dimensions.x + this.dimensions.margin * 2 + ((this.dimensions.width - 8 * this.dimensions.margin) / 3 + 2 * this.dimensions.margin) * ind}
-                            y={this.dimensions.y + this.dimensions.height - this.dimensions.margin * 2 - this.dimensions.buttonHeight}
-                            width={(this.dimensions.width - 8 * this.dimensions.margin) / 3}
-                            height={this.dimensions.buttonHeight}
-                            color="white"
-                            text={this.fullSuitNames[item]}
-                            callback={() => this.chooseTrump(item)}
-                        />
+                        <Group onClick={() => this.chooseTrump(item)}>
+                            <Rect
+                                x={x}
+                                y={y}
+                                width={width}
+                                height={height}
+                                fill={"white"}
+                                strokeWidth={4}
+                                stroke="black"
+                            />
+                            <SuitImage
+                                x={x + (width - height + 20) / 2}
+                                y={y + 10}
+                                suit={item}
+                                width={height - 20}
+                            />
+                        </Group>
 
                     )}
                 )}

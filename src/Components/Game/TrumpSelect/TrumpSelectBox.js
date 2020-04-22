@@ -1,6 +1,7 @@
 import React from "react";
 import {Rect, Group, Text} from "react-konva";
 import YesNoButton from "./YesNoButton";
+import SuitImage from "../Card/SuitImage";
 
 class TrumpSelectBox extends React.Component{
 
@@ -39,13 +40,19 @@ class TrumpSelectBox extends React.Component{
 
                 <Text
                     x={this.dimensions.x + 2 * this.dimensions.margin}
-                    y={this.dimensions.y + 2 * this.dimensions.margin}
+                    y={this.dimensions.y + 4 * this.dimensions.margin}
                     width={this.dimensions.width - 4 * this.dimensions.margin}
                     height={this.dimensions.height - 6 * this.dimensions.margin - this.dimensions.buttonHeight}
                     text={"Play on " + this.fullSuitNames[this.props.trumpOption] + "?"}
                     align="center"
-                    verticalAlign="middle"
                     fontSize={35}
+                />
+
+                <SuitImage
+                    x={this.dimensions.x + (this.dimensions.width - this.dimensions.buttonHeight) / 2}
+                    y={this.dimensions.y  + 70}
+                    suit={this.props.trumpOption}
+                    width={this.dimensions.buttonHeight}
                 />
 
                 <YesNoButton
