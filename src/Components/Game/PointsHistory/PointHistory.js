@@ -18,6 +18,17 @@ function PointHistory(props) {
         totalScore[0] += points[0] + points[2];
         totalScore[1] += points[1] + points[3];
     });
+    let points = props.points;
+
+    if (props.points.length > 18) {
+        let sum = [0, 0, 0, 0];
+        points.slice(0, points.length - 17).forEach((points) => {
+            sum[0] += points[0] + points[2];
+            sum[1] += points[1] + points[3];
+        });
+        points.splice(0, points.length - 16);
+        points.splice(0, 1, sum);
+    }
 
     return (
         <Group>
@@ -74,9 +85,9 @@ function PointHistory(props) {
                 fill={'black'}
             />
 
-            {Object.keys(props.points).map((item, key) => {
+            {Object.keys(points).map((item, key) => {
                 key = item;
-                item = props.points[key];
+                item = points[key];
                 return (
                     <PointHistoryPart
                         key={key}
