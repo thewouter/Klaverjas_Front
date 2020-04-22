@@ -199,7 +199,7 @@ class Table extends React.Component {
                             item = playedCards[key];
                             if (item === false || item == null) {
                                 return (
-                                    <Group key={ind}></Group>
+                                    <Group key={ind - 10}/>
                                 );
                             }
                             return (
