@@ -39,10 +39,14 @@ class Start extends React.Component {
     }
 
     newServer = (event) => {
+        let name = this.state.newServerName;
+        if (name > 20) {
+            name = name.substring(1,20);
+        }
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name: this.state.newServerName})
+            body: JSON.stringify({name: name})
         };
         fetch(process.env.REACT_APP_API_URL + '/room/add', requestOptions)
             .then(result => result.json());
