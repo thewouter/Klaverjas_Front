@@ -94,10 +94,14 @@ class Room extends React.Component {
         fetch(process.env.REACT_APP_API_URL + '/player/' + this.state.room_api[this.json_keys[seat]].id, requestOptions)
             .then(result => {
                 if (result.ok) {
-                    this.setState({seat: (result.json().client.id === this.context.clientID) ? seat : this.state.seat}) ;
+                    return result.json();
                 }
             })
-            .catch(error => console.log(error));
+            .then(json => {
+                if (typeof json !== 'undefined'){
+                    this.setState({seat: (json.client.id === this.context.clientID) ? seat : this.state.seat}) ;
+                }
+            }).catch(error => console.log(error));
     };
 
     startGame = () => {
