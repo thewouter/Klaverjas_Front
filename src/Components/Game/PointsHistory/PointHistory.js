@@ -18,7 +18,7 @@ function PointHistory(props) {
         totalScore[0] += points[0] + points[2];
         totalScore[1] += points[1] + points[3];
     });
-    let points = props.points;
+    let points = Array.from(props.points);
 
     if (props.points.length > 18) {
         let sum = [0, 0, 0, 0];
@@ -26,7 +26,7 @@ function PointHistory(props) {
             sum[0] += points[0] + points[2];
             sum[1] += points[1] + points[3];
         });
-        points.splice(0, points.length - 16);
+        points.splice(0, points.length - 17);
         points.splice(0, 1, sum);
     }
 
