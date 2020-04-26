@@ -30,8 +30,6 @@ class SuitImage extends React.Component {
                 break;
         }
 
-
-
         this.state = {
             suitImage: null,
             suitX: suit_x,

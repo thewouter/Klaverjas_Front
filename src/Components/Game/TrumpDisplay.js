@@ -25,6 +25,7 @@ function TrumpDisplay(props) {
                 fontSize={35}
             />
             <SuitImage
+                key={props.trump}
                 x={props.x + 49}
                 y={props.y + 49}
                 suit={props.trump}
