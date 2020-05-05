@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import faker from 'faker'
 import Room from './Room'
 import Start from './Lobby/Start'
 import {ClientIDHandlerContext} from './Context/ClientIDHandler'
@@ -22,8 +21,16 @@ class App extends React.Component {
         super(props);
         const regex = RegExp('.*\\/room\\/\\d*$','g');
         let room = -1;
-        if (regex.test(window.location.href)) {
+        if (regex.test(window.location.href) && parseInt(localStorage.getItem('clientID')) > 0) {
             room = parseInt( window.location.href.substring(window.location.href.lastIndexOf('/') + 1) );
+        } else { // not in room
+            const requestOptions = {
+                method: 'POST',
+            };
+            fetch(process.env.REACT_APP_API_URL + '/client/' + parseInt(localStorage.getItem('clientID')) + '/logout', requestOptions)
+                .then(result => {
+                    return result.json();
+                });
         }
         this.state = {
             name: localStorage.getItem("userName") || "",
@@ -145,7 +152,6 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                {/*<ClientIDHandler clientID={this.state.clientIDHandler.clientID} clientIDHandler={this.state.clientIDHandler.handleClientIDHandler}/>*/}
                 <ClientIDHandlerContext.Provider value={this.state.clientIDHandler}>
                     {
                         this.state.screen === this.screens.lobby &&
