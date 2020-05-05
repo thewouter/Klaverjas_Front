@@ -20,11 +20,15 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-
+        const regex = RegExp('.*\\/room\\/\\d*$','g');
+        let room = -1;
+        if (regex.test(window.location.href)) {
+            room = parseInt( window.location.href.substring(window.location.href.lastIndexOf('/') + 1) );
+        }
         this.state = {
             name: localStorage.getItem("userName") || "",
-            screen: localStorage.getItem("room") === null ? this.screens.lobby : this.screens.room,
-            room: localStorage.getItem("room") || -1,
+            screen: room === -1 ? this.screens.lobby : this.screens.room,
+            room: room,
             clientIDHandler: {
                 clientID: parseInt(localStorage.getItem('clientID')) || -1,
                 getClientID: this.getClientID,
@@ -111,12 +115,14 @@ class App extends React.Component {
 
         this.setState({room: id});
         this.screenChange(this.screens.room);
+        window.history.pushState({ foo: 'fake' }, 'Room ' + id, '/room/' + id);
         localStorage.setItem("room", id);
     };
 
     toLobby = () => {
         this.screenChange(this.screens.lobby);
         localStorage.removeItem("room");
+        window.history.pushState({ foo: 'fake' }, 'Lobby', '/');
         this.setState({room: -1});
     };
 
