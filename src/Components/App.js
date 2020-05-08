@@ -131,6 +131,13 @@ class App extends React.Component {
         localStorage.removeItem("room");
         window.history.pushState({ foo: 'fake' }, 'Lobby', '/');
         this.setState({room: -1});
+        const requestOptions = {
+            method: 'POST',
+        };
+        fetch(process.env.REACT_APP_API_URL + '/client/' + parseInt(this.state.clientID) + '/logout', requestOptions)
+            .then(result => {
+                return result.json();
+            });
     };
 
     nameChange = (event) => {
